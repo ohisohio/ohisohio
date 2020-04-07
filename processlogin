@@ -34,7 +34,13 @@ $_SESSION["error"] = $session_error;
                 if($passwordfromDB == $passwordfromUser){
                     //Redirect to SNH Dashboard
                     $_SESSION['loggedIn'] = $userObject->id;
-                    redirect_to("dashboard.php");
+                    $_SESSION['fullname'] = $userObject->first_name . " " . $userObject->last_name;
+                    $_SESSION['role'] = $userObject->designation;
+                    if ($userObject->designation == 'Patient'){
+                        header("Location: patients.php");
+                    }else{
+                        header("Location: metdashboard.php");
+                    }
                     die();
                 }
             }
